@@ -2,31 +2,12 @@ const express = require('express');
 const path = require('path');
 const ExifReader = require('exifreader');
 const fs = require('fs').promises;
-const sharp = require('sharp');
 
 const app = express();
 const PHOTOS_DIR = path.join(__dirname, 'photos', 'signs');
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/photos', express.static(path.join(__dirname, 'photos')));
-
-
-app.get('/photos/signs/:filename', async (req, res) => {
-    try {
-        const filePath = path.join(PHOTOS_DIR, req.params.filename);
-        const imageBuffer = await fs.readFile(filePath);
-        const compressedImage = await sharp(imageBuffer)
-            .resize(150, 150)
-            .jpeg({ quality: 20 })
-            .toBuffer();
-        
-        res.set('Content-Type', 'image/jpeg');
-        res.send(compressedImage);
-    } catch (error) {
-        console.error('Error serving ground photo:', error);
-        res.status(404).send('Image not found');
-    }
-});
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
@@ -38,7 +19,7 @@ app.get('/api/photos', async (req, res) => {
         
         const photos = await Promise.all(
             files
-                .filter(file => /\.(jpg|jpeg|png)$/i.test(file))
+                .filter(file => /\.(png)$/i.test(file))
                 .map(async file => {
                     const filePath = path.join(PHOTOS_DIR, file);
                     const imageBuffer = await fs.readFile(filePath);

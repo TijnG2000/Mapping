@@ -5,7 +5,7 @@
   position: relative;
   overflow: hidden;
 }
-/*white overlay to hide map(mask because i might want to cut the image frame to make the map visible, see main.js)*/
+/* White overlay to hide map (mask because i might want to cut the image frame to make the map visible, see main.js)*/
 #mask-overlay {
   position: absolute;
   top: 0;
@@ -17,7 +17,7 @@
 }
 
 /*Photo size. Will eventually need to be dynamic*/
-.photo-ground {
+.photo-fund {
   position: absolute;
   width: 150px;
   height: 150px;
