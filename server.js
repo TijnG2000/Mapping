@@ -5,13 +5,13 @@ const fs = require('fs').promises;
 const sharp = require('sharp');
 
 const app = express();
-const PHOTOS_DIR = path.join(__dirname, 'photos', 'ground');
+const PHOTOS_DIR = path.join(__dirname, 'photos', 'signs');
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/photos', express.static(path.join(__dirname, 'photos')));
 
 
-app.get('/photos/ground/:filename', async (req, res) => {
+app.get('/photos/signs/:filename', async (req, res) => {
     try {
         const filePath = path.join(PHOTOS_DIR, req.params.filename);
         const imageBuffer = await fs.readFile(filePath);
