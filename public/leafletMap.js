@@ -1,3 +1,25 @@
+// /////////////////////////////////////////
+
+// JavaScript to control the welcome pop-up and filter over map
+const popup = document.getElementById('welcome-popup');
+const enterButton = document.getElementById('enterButton');
+const backgroundFilter = document.getElementById('background-filter');
+
+// Show the pop-up and filter when the page loads
+window.onload = () => {
+    popup.style.display = 'block';
+    backgroundFilter.style.display = 'block'; // Show the filter
+};
+
+// Hide the pop-up and filter when the "Enter" button is clicked
+enterButton.addEventListener('click', () => {
+    popup.style.display = 'none';
+    backgroundFilter.style.display = 'none'; // Hide the filter
+});
+
+// /////////////////////////////////////////
+
+
 const map = L.map('map', {});
 
 map.setView([51.436985789108306, 5.464274124489311], 13);
