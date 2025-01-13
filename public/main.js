@@ -24,7 +24,7 @@ enterButton.addEventListener('click', () => {
     backgroundFilter.style.display = 'none'; // Hide the filter
 });
 
-//Ma8plibregl specifications (not so important)
+//Maplibregl specifications (not so important)
 map.addControl(new maplibregl.FullscreenControl({container: document.querySelector('body')}));
 let nav = new maplibregl.NavigationControl();
 map.addControl(nav, 'top-left');
