@@ -19,17 +19,17 @@ enterButton.addEventListener('click', () => {
 
 // /////////////////////////////////////////
 
-const locationButton = (location, position) => {
-    console.log(location , position)
-}
+//create variables for map location
+const map_location_left=[51.436985789108306,5.464274124489311]
+const map_location_right=[51.436985789108306,5.464274124489311]
 
 // /////////////////////////////////////////
 
 const map_left = L.map('map_left', {});
 const map_right = L.map('map_right', {});
 
-map_left.setView([51.436985789108306, 5.464274124489311], 13);
-map_right.setView([51.436985789108306, 5.464274124489311], 13);
+map_left.setView(map_location_left, 13);
+map_right.setView(map_location_right, 13);
 
 //var hash = new L.Hash(map_left);
 // Adding a background map 
@@ -92,4 +92,34 @@ fetchData = () => {
 
 fetchData()
 
+/////////////////////////
+
+// map locations , we had to reverse lat and lon coordinates
+const ourLocations={
+
+Military: [51.4836017378253,5.36258159765619],
+Canal: [51.4933530712901, 5.38188283867369],
+Best: [51.5061290558538,5.38267018682391],
+Oirschot: [51.496408741217, 5.33606503906852]
+
+}
+
+//function change the location on click
+const locationButton = (location, position) => {
+
+    
+    if (position === "left"){
+
+        map_left.setView(ourLocations[location], 14        );
+
+    }
+
+    if (position === "right"){
+
+        map_right.setView(ourLocations[location], 14        );
+
+    }
+
+
+}
 
