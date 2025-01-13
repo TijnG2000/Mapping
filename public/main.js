@@ -7,22 +7,51 @@ var map = new maplibregl.Map({
     hash: false
 });
 
-//Ma8plibregl specifications (not so important)
+// JavaScript to control the pop-up and filter over map
+const popup = document.getElementById('popup');
+const enterButton = document.getElementById('enterButton');
+const backgroundFilter = document.getElementById('background-filter');
+
+// Show the pop-up and filter when the page loads
+window.onload = () => {
+    popup.style.display = 'block';
+    backgroundFilter.style.display = 'block'; // Show the filter
+};
+
+// Hide the pop-up and filter when the "Enter" button is clicked
+enterButton.addEventListener('click', () => {
+    popup.style.display = 'none';
+    backgroundFilter.style.display = 'none'; // Hide the filter
+});
+
+//Maplibregl specifications (not so important)
 map.addControl(new maplibregl.FullscreenControl({container: document.querySelector('body')}));
 let nav = new maplibregl.NavigationControl();
 map.addControl(nav, 'top-left');
 
 //This loop adds the images and positions them, I thought it would be cool to cut out the images of the canvas and see the map behind it, that's why it's in the same loop
 map.on('load', async () => {
+    const overlay = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    overlay.id = 'mask-overlay';
+    overlay.innerHTML = `
+        <defs>
+            <mask id="holes">
+                <rect width="100%" height="100%" fill="white"/>
+            </mask>
+        </defs>
+        <rect width="100%" height="100%" fill="white" mask="url(#holes)"/>
+    `;
+    
+    document.getElementById('map').appendChild(overlay);
+
     try {
         const response = await fetch('/api/photos');
         const photos = await response.json();
-
         //Eventually all the layers will be on the site, but for now here where you choose the layer, the photo location, and position of photo, which is the midpoint
         photos.forEach(photo => {
             const point = map.project([photo.longitude, photo.latitude]);
             const img = document.createElement('img');
-            img.src = photo.url.replace('/photos/signs/');
+            img.src = photo.url.replace('/photos/ground/', '/photos/signs/');
             img.className = 'photo-fund';
             img.style.left = (point.x - 75) + 'px';
             img.style.top = (point.y - 75) + 'px';
@@ -35,26 +64,21 @@ map.on('load', async () => {
                 img.style.left = (point.x - 150) + 'px';
                 img.style.top = (point.y - 150) + 'px';
             });
+
+
+            img.addEventListener('click', () => {
+                const popup = new maplibregl.Popup()
+                    .setLngLat([photo.longitude, photo.latitude])
+                    .setHTML(`<img src="${photo.url}" style="max-width: 300px; max-height: 300px;">`)
+                    .addTo(map);
+            });
         });
     } catch (error) {
         console.error('Error loading photos:', error);
     }
-
-    // const overlay = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    // overlay.id = 'mask-overlay';
-    // overlay.innerHTML = `
-    //     <defs>
-    //         <mask id="holes">
-    //             <rect width="100%" height="100%" fill="white"/>
-    //         </mask>
-    //     </defs>
-    //     <rect width="100%" height="100%" fill="white" mask="url(#holes)"/>
-    // `;
-    // document.getElementById('map').appendChild(overlay);
 });
 
 // //This code is useless now, will use it for cut out fucntionality idea
-
 // function addCircleCutout(x, y, radius) {
 //     const mask = document.getElementById('holes');
 //     if (mask) {
