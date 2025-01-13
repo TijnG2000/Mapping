@@ -63,6 +63,22 @@ function createPhotoIcon(imageUrl) {
         iconAnchor: [25, 25] // Center the image in the icon
     });
 }
+
+
+//creat empty layers for category buttons
+
+const newLayer_left_Map = L.geoJson ()
+const newLayer_left_Ground = L.geoJson ()
+const newLayer_left_Trees = L.geoJson ()
+const newLayer_left_Sound = L.geoJson ()
+
+const newLayer_right_Map = L.geoJson ()
+const newLayer_right_Ground = L.geoJson ()
+const newLayer_right_Trees = L.geoJson ()
+const newLayer_right_Sound = L.geoJson ()
+
+
+
 // Using GeoJSON to render photos on the  map
 fetchData = () => {
     fetch(
@@ -70,12 +86,18 @@ fetchData = () => {
     )
         .then((response) => response.json())
         .then((geojson) => {
+
+
+
             // left layer
             const myPhotosLayer_left = L.geoJson(geojson, {
                 onEachFeature: function (feature, layer) {
                     if (feature.properties.layer === chosenCategory) {
                         var imageUrl = feature.properties.filename;
                         var photoIcon = createPhotoIcon(imageUrl);
+                        
+                        /// ADD: popup with audio, access file name from geoGson
+                        //<audio src ="${feature.properties.filename}" type = "wav"/>
 
                         // Set the custom icon on the layer
                         layer.setIcon(photoIcon);
@@ -119,19 +141,20 @@ Oirschot: [51.496408741217, 5.33606503906852]
 //function change the location on click
 const locationButton = (location, position) => {
 
-    
     if (position === "left"){
-
         map_left.setView(ourLocations[location], 14        );
-
     }
 
     if (position === "right"){
-
         map_right.setView(ourLocations[location], 14        );
-
     }
 
+}
+
+
+const categoryButton = (category) => {
+
+    console.log(category)
 
 }
 
