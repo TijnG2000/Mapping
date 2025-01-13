@@ -19,21 +19,24 @@ enterButton.addEventListener('click', () => {
 
 // /////////////////////////////////////////
 
-const locationButton = (category, position) => {
-    console.log(category , position)
+const locationButton = (location, position) => {
+    console.log(location , position)
 }
 
 // /////////////////////////////////////////
 
-const map = L.map('map', {});
+const map_left = L.map('map_left', {});
+const map_right = L.map('map_right', {});
 
-map.setView([51.436985789108306, 5.464274124489311], 13);
-var hash = new L.Hash(map);
+map_left.setView([51.436985789108306, 5.464274124489311], 13);
+map_right.setView([51.436985789108306, 5.464274124489311], 13);
+
+//var hash = new L.Hash(map_left);
 // Adding a background map 
-// L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-//     maxZoom: 19,
-//     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-// }).addTo(map);
+ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+     maxZoom: 19,
+     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+ }).addTo(map_left);
 
 // Set the variables used 
 const photoLocation = "../data";
@@ -55,7 +58,8 @@ fetchData = () => {
     )
         .then((response) => response.json())
         .then((geojson) => {
-            const myPhotosLayer = L.geoJson(geojson, {
+            // left layer
+            const myPhotosLayer_left = L.geoJson(geojson, {
                 onEachFeature: function (feature, layer) {
                     if (feature.properties.layer === chosenCategory) {
                         var imageUrl = feature.properties.filename;
@@ -65,11 +69,27 @@ fetchData = () => {
                         layer.setIcon(photoIcon);
                     }
                 }
-            }).addTo(map);
+            });
+
+            // right layer
+            const myPhotosLayer_right = L.geoJson(geojson, {
+                onEachFeature: function (feature, layer) {
+                    if (feature.properties.layer === chosenCategory) {
+                        var imageUrl = feature.properties.filename;
+                        var photoIcon = createPhotoIcon(imageUrl);
+
+                        // Set the custom icon on the layer
+                        layer.setIcon(photoIcon);
+                    }
+                }
+            });
+            myPhotosLayer_left.addTo(map_left);
+            myPhotosLayer_right.addTo(map_right);
 
 
         })
 }
 
-map.on('load', fetchData())
+fetchData()
+
 

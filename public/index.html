@@ -32,8 +32,16 @@
   </head>
 
   <body>
-    <!-- Map -->
-    <div id="map"></div>
+    <!-- container for 2 maps -->
+    <div id="maps_container">
+
+       <!-- Map left -->
+      <div id="map_left" class="map"></div>
+
+       <!-- Map right -->
+      <div id="map_right" class="map"></div>
+
+    </div>
 
     <div class="category-buttons">
       <div class="category">
@@ -60,14 +68,14 @@
 
     <div class="side-buttons" id="left-side">
       <div class="rect-button" onclick="locationButton('Best', 'left')" data-filter="best">Best</div>
-      <div class="rect-button" onclick="locationButton('Oirschot', 'left')" data-filter="orischot">Orischot</div>
+      <div class="rect-button" onclick="locationButton('Oirschot', 'left')" data-filter="Oirschot">Oirschot</div>
       <div class="rect-button" onclick="locationButton('Canal', 'left')" data-filter="canal">Canal</div>
       <div class="rect-button" onclick="locationButton('Military', 'left')" data-filter="military">Military</div>
     </div>
 
     <div class="side-buttons" id="right-side">
       <div class="rect-button" onclick="locationButton('Best', 'right')" data-filter="best">Best</div>
-      <div class="rect-button" onclick="locationButton('Oirschot', 'right')" data-filter="orischot">Orischot</div>
+      <div class="rect-button" onclick="locationButton('Oirschot', 'right')" data-filter="Oirschot">Oirschot</div>
       <div class="rect-button" onclick="locationButton('Canal', 'right')" data-filter="canal">Canal</div>
       <div class="rect-button"  onclick="locationButton('Military', 'right')" data-filter="military">Military</div>
     </div>
