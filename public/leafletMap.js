@@ -25,8 +25,20 @@ const map_location_right=[51.436985789108306,5.464274124489311]
 
 // /////////////////////////////////////////
 
-const map_left = L.map('map_left', {});
-const map_right = L.map('map_right', {});
+const map_left = L.map('map_left', {
+    zoomControl: false});
+const map_right = L.map('map_right', { 
+    zoomControl: false});
+
+
+
+L.control.zoom({
+    position: 'bottomleft'
+}).addTo(map_left);
+
+L.control.zoom({
+    position: 'bottomright'
+}).addTo(map_right);
 
 map_left.setView(map_location_left, 13);
 map_right.setView(map_location_right, 13);
