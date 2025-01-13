@@ -19,6 +19,11 @@ enterButton.addEventListener('click', () => {
 
 // /////////////////////////////////////////
 
+const locationButton = (category, position) => {
+    console.log(category , position)
+}
+
+// /////////////////////////////////////////
 
 const map = L.map('map', {});
 

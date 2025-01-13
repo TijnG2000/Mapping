@@ -1,14 +1,6 @@
-//Initial background map, position, and zoom level right after loading website
-var map = new maplibregl.Map({
-    container: 'map', 
-    style: 'https://api.maptiler.com/maps/d06f2b08-5a57-4354-a53c-e9e997030524/style.json?key=uUBjZLywPic3D2JTYgOE', 
-    center: [5.3559, 51.4964],
-    zoom: 14, 
-    hash: false
-});
 
-// JavaScript to control the pop-up and filter over map
-const popup = document.getElementById('popup');
+// JavaScript to control the welcome pop-up and filter over map
+const popup = document.getElementById('welcome-popup');
 const enterButton = document.getElementById('enterButton');
 const backgroundFilter = document.getElementById('background-filter');
 
@@ -22,6 +14,16 @@ window.onload = () => {
 enterButton.addEventListener('click', () => {
     popup.style.display = 'none';
     backgroundFilter.style.display = 'none'; // Hide the filter
+});
+
+
+//Initial background map, position, and zoom level right after loading website
+var map = new maplibregl.Map({
+    container: 'map', 
+    style: 'https://api.maptiler.com/maps/d06f2b08-5a57-4354-a53c-e9e997030524/style.json?key=uUBjZLywPic3D2JTYgOE', 
+    center: [5.3559, 51.4964],
+    zoom: 14, 
+    hash: false
 });
 
 //Maplibregl specifications (not so important)
