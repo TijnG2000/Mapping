@@ -26,4 +26,95 @@
   transition: transform 0.1s;
   z-index: 200;
   pointer-events: none;
+  
+/* Body styling */
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  height: 100vh;
+  background-color: #f4f4f4;
+}
+
+/* Top category buttons */
+.category-buttons {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.category {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.category span {
+  font-size: 16px;
+  color: #333;
+}
+
+.checkbox {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #333;
+  border-radius: 3px;
+  background-color: transparent;
+  transition: background-color 0.3s ease;
+}
+
+.checkbox.active {
+  background-color: #007BFF; /* Blue color when clicked */
+}
+
+/* Shared styling for the side buttons */
+.side-buttons {
+  position: absolute;
+  top: 100px; /* Adjusts the position below the top menu */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rect-button {
+  width: 200px; /* Width of buttons */
+  padding: 15px 0; /* Height of buttons */
+  text-align: center;
+  border: 2px solid #000; /* Black outline */
+  font-size: 16px;
+  color: #333;
+  cursor: pointer;
+  background-color: #fff;
+  transition: filter 0.3s ease;
+}
+
+.rect-button:hover {
+  background-color: #f0f0f0; /* Slight hover effect */
+}
+
+.rect-button.clicked {
+  filter: none; /* Clear filter for clicked buttons */
+}
+
+.rect-button:not(.clicked) {
+  filter: grayscale(80%); /* Light grey filter for unclicked buttons */
+}
+
+/* Specific positioning for left-side buttons */
+.left-side {
+  left: 20px;
+}
+
+/* Specific positioning for right-side buttons */
+.right-side {
+  right: 20px;
+}
+  
+  
+  
 }
