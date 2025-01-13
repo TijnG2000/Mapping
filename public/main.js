@@ -7,6 +7,20 @@ var map = new maplibregl.Map({
     hash: false
 });
 
+// JavaScript to control the pop-up
+const popup = document.getElementById('popup');
+const enterButton = document.getElementById('enterButton');
+
+// Show the pop-up when the page loads
+window.onload = () => {
+    popup.style.display = 'block';
+};
+
+// Hide the pop-up when the button is clicked
+enterButton.addEventListener('click', () => {
+    popup.style.display = 'none';
+});
+
 //Ma8plibregl specifications (not so important)
 map.addControl(new maplibregl.FullscreenControl({container: document.querySelector('body')}));
 let nav = new maplibregl.NavigationControl();
