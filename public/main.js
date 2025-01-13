@@ -7,18 +7,21 @@ var map = new maplibregl.Map({
     hash: false
 });
 
-// JavaScript to control the pop-up
+// JavaScript to control the pop-up and filter over map
 const popup = document.getElementById('popup');
 const enterButton = document.getElementById('enterButton');
+const backgroundFilter = document.getElementById('background-filter');
 
-// Show the pop-up when the page loads
+// Show the pop-up and filter when the page loads
 window.onload = () => {
     popup.style.display = 'block';
+    backgroundFilter.style.display = 'block'; // Show the filter
 };
 
-// Hide the pop-up when the button is clicked
+// Hide the pop-up and filter when the "Enter" button is clicked
 enterButton.addEventListener('click', () => {
     popup.style.display = 'none';
+    backgroundFilter.style.display = 'none'; // Hide the filter
 });
 
 //Ma8plibregl specifications (not so important)
