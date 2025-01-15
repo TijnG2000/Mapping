@@ -52,7 +52,7 @@ left:  0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    margin 0;
+    margin: 0;
     padding: 0;
     background-color: rgba(255, 255, 255, 0.7); /* White-ish semi-transparent filter */
     display: none; /* Initially hidden */
@@ -176,4 +176,15 @@ left:  0;
   
   
   
+.photo-icon{
+
+  height: 300px;
+
+
+
+
+
+
+
+}
 
