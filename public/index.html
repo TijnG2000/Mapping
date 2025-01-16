@@ -33,29 +33,42 @@
 
   <body>
 
-<!-- header bar with categorys -->
-    <div class="category-buttons">
-      <div class="category" onclick="categoryButton('Map')">
-        <span>Map</span>
-        <input type="checkbox" class="checkbox"></input>
-      </div>
-      <div class="category" >
-        <span>Ground</span>
-        <input type="checkbox" class="checkbox"></input>
-      </div>
-      <div class="category">
-        <span>Signs</span>
-        <input type="checkbox" class="checkbox"></input>
-      </div>
-      <div class="category">
-        <span>Trees</span>
-        <input type="checkbox" class="checkbox"></input>
-      </div>
-      <div class="category">
-        <span>Sound</span>
-        <input type="checkbox" class="checkbox"></input>
-      </div>
-    </div>
+
+<!-- Header bar with categories -->
+<div class="category-buttons">
+
+  <!-- Checkbox "Map" -->
+  <div class="category" onclick="categoryButton('Map')">
+    <span>Map</span>
+    <input type="checkbox" class="checkbox"></input>
+  </div>
+
+  
+  <!-- Checkbox "Ground" -->
+  <div class="category" onclick="categoryButton('Ground')">
+    <span>Ground</span>
+    <input type="checkbox" class="checkbox"></input>
+  </div>
+
+  <!-- Checkbox "Signs" -->
+  <div class="category" onclick="categoryButton('Signs')">
+    <span>Signs</span>
+    <input type="checkbox" class="checkbox"></input>
+  </div>
+
+  <!-- Checkbox "Trees" -->
+  <div class="category" onclick="categoryButton('Trees')">
+    <span>Trees</span>
+    <input type="checkbox" class="checkbox"></input>
+  </div>
+
+  <!-- Checkbox "Sound" -->
+  <div class="category" onclick="categoryButton('Sound')">
+    <span>Sound</span>
+    <input type="checkbox" class="checkbox"></input>
+  </div>
+
+</div>
 
     <!-- container for 2 maps -->
     <div id="maps_container">
@@ -83,28 +96,36 @@
       <div class="rect-button" onclick="locationButton('Canal', 'right')" data-filter="canal">Canal</div>
       <div class="rect-button"  onclick="locationButton('Military', 'right')" data-filter="military">Military</div>
     </div>
+
+
     <!-- Background filter element -->
     <div class="background-filter" id="background-filter"></div>
 
     <!-- Pop-up HTML -->
     <div id="welcome-popup">
+      
       <p>
-        “The world is never the less beautiful viewed a knot-hole” -Henry
-        Thoreaun Once upon a time, the area of Oirschot and Best was divided
-        between the living area, the fertile grounds where crops grew, and the
-        dry sand that the sheeps grazed on. things in these two towns are not so
-        simple, there are now more sections with more purposes. Choose two areas
-        and they will tell you the story about the humans and non humans who use
-        this land. pay attention to the signs, and learn what the municipality
-        tried to make this space, then look at the graffiti to hear the
-        responses of the people. see where trees grow in rows and where they are
-        cut and managed. find where there is silence and where the sound of wind
-        in branches is louder than cars. can you get a sense of the world of
-        pipes below the ground by the marking on the signs?
+          “The world is never the less beautiful viewed a knot-hole” <br>-Henry Thoreaun<br>
+          <p> Once upon a time, the area of Oirschot and Best was divided
+          between the living area, the fertile grounds where crops grew, and the
+          dry sand that the sheeps grazed on. things in these two towns are not so
+          simple, there are now more sections with more purposes. </p>
+          
+          <p>Choose two areas
+          and they will tell you the story about the humans and non humans who use
+          this land. pay attention to the signs, and learn what the municipality
+          tried to make this space, then look at the graffiti to hear the
+          responses of the people. see where trees grow in rows and where they are
+          cut and managed. find where there is silence and where the sound of wind
+          in branches is louder than cars. can you get a sense of the world of
+          pipes below the ground by the marking on the signs?
+        </p>
       </p>
+
       <button id="enterButton">Enter</button>
     </div>
 
     <script src="leafletMap.js"></script>
   </body>
 </html>
+

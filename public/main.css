@@ -25,6 +25,7 @@ overflow: hidden;
   margin: 0;
   overflow: hidden;
   z-index: 0;
+  border: 1px solid #000;
 }
 
 
@@ -65,7 +66,7 @@ left:  0;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 40%; /* Adjust to control size */
+    width: 50%; /* Adjust to control size */
     min-width: 300px; /* Minimum size for small screens */
     max-width: 500px; /* Limit for larger screens */
     padding: 20px;
@@ -75,6 +76,7 @@ left:  0;
     text-align: center;
     display: none; /* Initially hidden */
     z-index: 2; /* Places the pop-up above the filter */
+    font-size: 14px
 }
 
 /* Enter Button styling */
@@ -103,6 +105,7 @@ left:  0;
   gap: 20px;
   width: 100vw;
   background-color: #ffffff;
+  border: 1px solid #000;
   
 }
 

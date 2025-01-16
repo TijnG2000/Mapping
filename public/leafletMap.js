@@ -25,13 +25,14 @@ const map_location_right=[51.436985789108306,5.464274124489311]
 
 // /////////////////////////////////////////
 
+//creat map_left and Map_right
 const map_left = L.map('map_left', {
     zoomControl: false});
 const map_right = L.map('map_right', { 
     zoomControl: false});
 
 
-//change zoombutton posaition
+//change zoombutton position
 L.control.zoom({
     position: 'bottomleft'
 }).addTo(map_left);
@@ -40,10 +41,8 @@ L.control.zoom({
     position: 'bottomright'
 }).addTo(map_right);
 
-map_left.setView(map_location_left, 13);
-map_right.setView(map_location_right, 13);
-
-//var hash = new L.Hash(map_left);
+map_left.setView(map_location_left, 12);
+map_right.setView(map_location_right, 12);
 
 
 // Adding a background map 
@@ -84,6 +83,9 @@ const newLayer_right_Ground = L.geoJson ()
 const newLayer_right_Trees = L.geoJson ()
 const newLayer_right_Sound = L.geoJson ()
 
+// Define layer groups for each map
+var layerGroupLeft = L.layerGroup().addTo(map_left);
+var layerGroupRight = L.layerGroup().addTo(map_right);
 
 
 // Using GeoJSON to render photos on the  map
@@ -180,7 +182,7 @@ const ourBoundingBoxes={
 const locationButton = (location, position) => {
 
     if (position === "left"){
-        map_left.setView(ourLocations[location], 17        );
+        map_left.setView(ourLocations[location], 17       );
         map_left.setMaxBounds(ourBoundingBoxes["BoundingBox_"]);
     }
 
@@ -191,10 +193,194 @@ const locationButton = (location, position) => {
 
 }
 
-
+/*/function returns category as a string when checkbox is clicked
 const categoryButton = (category) => {
 
     console.log(category)
+    
+    if (category = "ground"){
+
+        //create popup markers with ground images
+    }
+
+    else{
+
+        //remove popup markers with ground images
+    }
+   
 
 }
+
+/*define Geojson data
+
+// Example GeoJSON data
+const geojsonData = {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-0.09, 51.505]
+        },
+        "properties": {
+          "category": "Ground",
+          "image": "path/to/ground.jpg"
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-0.1, 51.506]
+        },
+        "properties": {
+          "category": "Signs",
+          "image": "path/to/sign.jpg"
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-0.11, 51.507]
+        },
+        "properties": {
+          "category": "Trees",
+          "image": "path/to/trees.jpg"
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-0.12, 51.508]
+        },
+        "properties": {
+          "category": "Sound",
+          "image": "path/to/sound.jpg"
+        }
+      }
+    ]
+  };
+  */
+
+
+
+//////
+// Path to your GeoJSON file
+const geojsonFilePath = '../data/Website Items_with relative Filepaths.geojson';
+
+// Global variable to hold the processed data
+let geojsonData = [];
+
+// Function to load and process the GeoJSON file
+const loadGeoJSONData = () => {
+    fetch(geojsonFilePath)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Failed to load GeoJSON file: ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Parse the required fields
+            geojsonData = data.features.map(feature => ({
+                category: feature.properties.Category,
+                filepath: feature.properties.filepath_relative,
+                coordinates: [feature.properties.longitude, feature.properties.latitude],
+            }));
+            console.log("GeoJSON Data Loaded:", geojsonData);
+
+            // Optionally, you can add markers to the maps on load
+            addMarkersToMaps();
+        })
+        .catch(error => {
+            console.error("Error loading GeoJSON data:", error);
+        });
+};
+
+// Function to add markers to the maps based on loaded GeoJSON data
+const addMarkersToMaps = () => {
+    geojsonData.forEach(item => {
+        const markerLeft = L.marker([item.coordinates[1], item.coordinates[0]])
+            .bindPopup(`<b>${item.category}</b><br><img src="${item.filepath}" alt="${item.category}" style="width:100px;">`)
+            .addTo(layerGroupLeft);
+
+        const markerRight = L.marker([item.coordinates[1], item.coordinates[0]])
+            .bindPopup(`<b>${item.category}</b><br><img src="${item.filepath}" alt="${item.category}" style="width:100px;">`)
+            .addTo(layerGroupRight);
+
+        // Store category for later filtering
+        markerLeft._category = item.category.toLowerCase();
+        markerRight._category = item.category.toLowerCase();
+    });
+};
+
+// Call the function to load GeoJSON when the page loads
+loadGeoJSONData();
+
+
+
+
+
+
+
+
+//function returns ""category" is selected/deselected" as a consolelog when checkbox is clicked
+
+// Function to handle category toggling
+const categoryButton = (category) => {
+
+    // Find the checkbox associated with the category
+    const checkbox = Array.from(document.querySelectorAll('.category')).find(el => 
+        el.querySelector('span').innerText.toLowerCase() === category.toLowerCase()
+    )?.querySelector('.checkbox');
+
+    if (checkbox) {
+        if (checkbox.checked) {
+            console.log(`${category} is selected.`);
+            // Add popup markers for the selected category
+            geojsonData.features
+                .filter(feature => feature.properties.category.toLowerCase() === category.toLowerCase())
+                .forEach(feature => {
+                    const coordinates = feature.geometry.coordinates;
+                    const imageUrl = feature.properties.image;
+
+                    // Add marker with popup
+                    const marker = L.marker([coordinates[1], coordinates[0]])
+                        .bindPopup(`<img src="${imageUrl}" alt="${category}" style="width:100px;">`)
+                        .addTo(layerGroupLeft); // Add to left map
+                        
+                    L.marker([coordinates[1], coordinates[0]])
+                        .bindPopup(`<img src="${imageUrl}" alt="${category}" style="width:100px;">`)
+                        .addTo(layerGroupRight); // Add to right map
+
+                    // Store marker for removal if needed
+                    marker._category = category.toLowerCase();
+                });
+        } else {
+            console.log(`${category} is deselected.`);
+            // Remove markers for the deselected category
+            layerGroupLeft.eachLayer(layer => {
+                if (layer._category === category.toLowerCase()) {
+                    layerGroupLeft.removeLayer(layer);
+                }
+            });
+            layerGroupRight.eachLayer(layer => {
+                if (layer._category === category.toLowerCase()) {
+                    layerGroupRight.removeLayer(layer);
+                }
+            });
+        }
+    }
+};
+
+
+
+
+
+
+
+
 
