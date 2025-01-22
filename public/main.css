@@ -147,6 +147,12 @@ left:  0;
   -webkit-backdrop-filter: blur(10px);
 }
 
+/* This little thing tells you where you are, kind of */
+.rect-button.active {
+  background-color: rgba(7, 70, 0, 0.3);
+  color: #ffffff;
+}
+
 #left-side {
   left: 20px;
 }
@@ -176,4 +182,24 @@ left:  0;
 .audio-box:hover {
   background-color: rgba(0, 0, 0, 0.2);
   border-color: rgba(0, 0, 0, 0.5);
+}
+
+.category {
+  position: relative;
+}
+
+.tooltip {
+  display: none;
+  position: absolute;
+  background: rgba(3, 65, 0, 0.8);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  width: 200px;
+  z-index: 1000;
+}
+
+.category:hover .tooltip {
+  display: block;
+  position: fixed;
 }

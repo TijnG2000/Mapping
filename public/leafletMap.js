@@ -15,6 +15,30 @@ enterButton.addEventListener('click', () => {
     backgroundFilter.style.display = 'none'; // Hide the filter
 });
 
+//hovering, Noams dream.
+document.querySelectorAll('.category').forEach(category => {
+    const tooltip = category.querySelector('.tooltip');
+    category.addEventListener('mousemove', (e) => {
+        tooltip.style.left = e.pageX + 10 + 'px';
+        tooltip.style.top = e.pageY + 10 + 'px';
+    });
+});
+
+//tells you were you are
+document.querySelectorAll('.rect-button').forEach(button => {
+    button.addEventListener('click', () => {
+        const side = button.parentElement;
+        if (button.classList.contains('active')) {
+            button.classList.remove('active');
+        } else {
+            side.querySelectorAll('.rect-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            button.classList.add('active');
+        }
+    });
+ });
+
 
 //create variables for map location
 const map_location_left=[51.436985789108306,5.464274124489311]
